@@ -14,7 +14,7 @@ Access is role-based. A fixed list of Gmail addresses (stored in Firestore, not 
 
 - **Hardware**: Raspberry Pi 3B as the controller, two ESP32 boards as sensor/relay nodes, fuzzy logic for the irrigation decision instead of fixed thresholds.
 - **Frontend**: Plain HTML/CSS/JS (no framework, no build step) using native ES modules. Firebase Auth handles sign-in, Firestore is the database.
-- **AI chatbot & recommendations **: Garden sensor data + current weather gets sent to Groq's API (Llama 3 8B) to generate a short irrigation recommendation. 
+- **AI chatbot & recommendations**: Garden sensor data + current weather gets sent to Groq's API (Llama 3 8B) to generate a short irrigation recommendation. 
 - **Weather data**: OpenWeatherMap, used both for the dashboard's weather card and as input to the AI recommendation.
 
 ## Project structure

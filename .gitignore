@@ -1,0 +1,4 @@
+service-account.json
+*.csv
+serviceAccountKey.json
+js/config.js

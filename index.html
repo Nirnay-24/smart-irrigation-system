@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Irrigation System</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Barlow:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/assistant-widget.css">
+    <link rel="stylesheet" href="css/analytics.css">
+    <link rel="stylesheet" href="css/intelligence.css">
+
+    <!-- Chart.js — used by analytics page, loaded globally so canvas is ready -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="login-screen hidden">
+    <div class="login-card">
+        <div class="login-logo">
+            <i class="fas fa-seedling"></i>
+        </div>
+        <h1 class="login-title">Smart Irrigation</h1>
+        <p class="login-sub">Sign in to access your dashboard</p>
+        <button id="googleSignInBtn" class="btn-google">
+            <i class="fab fa-google"></i>
+            Sign in with Google
+        </button>
+        <p class="login-note">Access level is set automatically based on your account.</p>
+    </div>
+</div>
+
+<!-- VIEWER BANNER -->
+<div id="viewerBanner" class="viewer-banner hidden">
+    <i class="fas fa-eye"></i>
+    You are in <strong>View-Only Mode</strong> — You can monitor the system but cannot control operations.
+</div>
+
+<!-- MAIN APP -->
+<div id="mainApp" class="app-shell hidden">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div id="profileTrigger" class="profile-block">
+            <img id="userAvatar"
+                 src="https://placehold.co/80x80/0e1c2a/00d4b4?text=U"
+                 alt="Avatar" class="profile-avatar">
+            <div class="profile-meta">
+                <h3 id="userName"  class="profile-name">Loading...</h3>
+                <p  id="userCity"  class="profile-city">—</p>
+                <span id="roleBadge" class="role-badge">—</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <!-- Overview -->
+            <a href="#" id="overviewLink" class="nav-link active">
+                <i class="fas fa-th-large"></i>
+                <span>Overview</span>
+            </a>
+
+            <!-- Gardens -->
+            <div class="nav-sep">Gardens</div>
+            <a href="#" class="nav-link garden-link" data-garden="Garden1">
+                <i class="fas fa-water"></i>
+                <span>Garden 1</span>
+            </a>
+            <a href="#" class="nav-link garden-link" data-garden="Garden2">
+                <i class="fas fa-seedling"></i>
+                <span>Garden 2</span>
+            </a>
+            <a href="#" class="nav-link garden-link" data-garden="Garden3">
+                <i class="fas fa-seedling"></i>
+                <span>Garden 3</span>
+            </a>
+            <a href="#" class="nav-link garden-link" data-garden="Garden4">
+                <i class="fas fa-seedling"></i>
+                <span>Garden 4</span>
+            </a>
+
+            <!-- Analytics -->
+            <div class="nav-sep">Analytics</div>
+            <a href="#" id="insightsLink" class="nav-link">
+                <i class="fas fa-chart-bar"></i>
+                <span>Irrigation Insights</span>
+            </a>
+            <a href="#" id="analyticsLink" class="nav-link">
+                <i class="fas fa-chart-line"></i>
+                <span>Sensor Analytics</span>
+            </a>
+            <a href="#" id="intelligenceLink" class="nav-link">
+                <i class="fas fa-brain"></i>
+                <span>System Intelligence</span>
+            </a>
+        </nav>
+
+        <button id="signOutBtn" class="btn-signout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Sign Out</span>
+        </button>
+    </aside>
+
+    <!-- Main content -->
+    <main id="mainContent" class="main-content custom-scrollbar">
+    </main>
+
+</div>
+
+<!-- PROFILE MODAL -->
+<div id="profileModal" class="modal-wrap hidden">
+    <div id="modalBackdrop" class="modal-bg"></div>
+    <div class="modal-box">
+        <div class="modal-head">
+            <h2>Profile Settings</h2>
+            <button id="closeModalBtn" class="modal-x">&times;</button>
+        </div>
+        <div class="modal-body custom-scrollbar">
+            <div class="modal-top">
+                <div class="av-wrap">
+                    <img id="modalAvatarPreview"
+                         src="https://placehold.co/96x96/0e1c2a/00d4b4?text=U"
+                         alt="Avatar" class="modal-av">
+                    <label for="avatarUpload" class="av-cam">
+                        <i class="fas fa-camera"></i>
+                        <input type="file" id="avatarUpload" class="hidden" accept="image/*">
+                    </label>
+                </div>
+                <div class="modal-fields">
+                    <div class="field-grp">
+                        <label>Name</label>
+                        <input type="text" id="profileName" placeholder="Your name">
+                    </div>
+                    <div class="field-grp">
+                        <label>City</label>
+                        <input type="text" id="profileCity" placeholder="e.g. Pune, IN">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-row">
+                <div class="field-grp">
+                    <label>Email</label>
+                    <input type="email" id="profileEmail">
+                </div>
+                <div class="field-grp">
+                    <label>Phone</label>
+                    <input type="tel" id="profilePhone">
+                </div>
+            </div>
+        </div>
+        <div class="modal-foot">
+            <button id="cancelModalBtn" class="btn-sec">Cancel</button>
+            <button id="saveProfileBtn" class="btn-pri">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>
